@@ -13,6 +13,7 @@ namespace laboAT2.Controllers
 {
     public class InscriptionController : Controller
     {
+        static int id_etudiant;
         // GET: Inscription
         public ActionResult Inscription()
         {
@@ -256,7 +257,7 @@ namespace laboAT2.Controllers
             string newUs = reset.user;
             string newPwd = reset.password;
 
-            int idEtudiant = 10;
+            int idEtudiant = id_etudiant;
 
             resetLogin(idEtudiant,newUs, newPwd);
             setStatusTrue(idEtudiant);
