@@ -1,0 +1,28 @@
+﻿@model laboAT2.Models.enseignant
+@{
+    ViewBag.Title = "LoginEnseignant";
+}
+
+
+
+
+
+@using (Html.BeginForm("home", "Enseignant", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.email)
+        @Html.TextBoxFor(m => m.email, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.email, "you must enter your email", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.mdp)
+        @Html.TextBoxFor(m => m.mdp, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.mdp, "You must enter your password", new { @class = "text-danger" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Login</button>
+
+}

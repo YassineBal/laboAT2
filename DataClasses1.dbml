@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="D:\DEC\AUTOMN2023\AT2\LABOAT2\APP_DATA\DBEDUCATIONAT2.MDF" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=D:\DEC\AUTOMN2023\AT2\LABOAT2\APP_DATA\DBEDUCATIONAT2.MDF;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="D__DEC_AUTOMN2023_AT2_LABOAT2_APP_DATA_DBEDUCATIONAT2_MDFConnectionString1" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.enseignants" Member="enseignants">
+    <Type Name="enseignant">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="nom" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="prenom" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="email" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="mdp" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.cours" Member="cours">
+    <Type Name="cour">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="titre" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="niveauEducation" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="description" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="img" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="NiveauEducation_cour" Member="NiveauEducation1" ThisKey="niveauEducation" OtherKey="Id" Type="NiveauEducation" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.NiveauEducation" Member="NiveauEducations">
+    <Type Name="NiveauEducation">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="description" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="titre" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Association Name="NiveauEducation_cour" Member="cours" ThisKey="Id" OtherKey="niveauEducation" Type="cour" />
+      <Association Name="NiveauEducation_video" Member="videos" ThisKey="Id" OtherKey="niveauEducation" Type="video" />
+    </Type>
+  </Table>
+  <Table Name="dbo.videos" Member="videos">
+    <Type Name="video">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="niveauEducation" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="titre" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="lien" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="NiveauEducation_video" Member="NiveauEducation1" ThisKey="niveauEducation" OtherKey="Id" Type="NiveauEducation" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

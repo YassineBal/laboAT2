@@ -257,7 +257,7 @@ namespace laboAT2.Controllers
             string newUs = reset.user;
             string newPwd = reset.password;
 
-            int idEtudiant = id_etudiant;
+            int idEtudiant = 12;
 
             resetLogin(idEtudiant,newUs, newPwd);
             setStatusTrue(idEtudiant);
