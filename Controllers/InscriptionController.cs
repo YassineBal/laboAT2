@@ -17,23 +17,23 @@ namespace laboAT2.Controllers
         // GET: Inscription
         public ActionResult Inscription()
         {
-            //List<clsEtudiant> lst = new List<clsEtudiant>();
+            //List<clsNiveauEducation> lst = new List<clsNiveauEducation>();
 
             //SqlConnection con = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=D:\\DEC\\AUTOMN2023\\AT2\\LABOAT2\\APP_DATA\\DBEDUCATIONAT2.MDF;Integrated Security=True");
             //con.Open();
             //string sql = "SELECT * FROM NiveauEducation";
             //SqlCommand cmd = new SqlCommand(sql, con);
             //SqlDataReader myrder = cmd.ExecuteReader();
-            
+
             //while (myrder.Read())
             //{
-            //    lst.Add(new clsEtudiant() { titre =myrder["titre"].ToString() });
-        
+            //    lst.Add(new clsNiveauEducation() {  titre = myrder["titre"].ToString(), id = Convert.ToInt32(myrder["Id"]) });
+
 
             //}
             //myrder.Close();
             //con.Close();
-            //ViewBag.titre = lst;
+            //ViewBag.nvEducation = lst;
             return View();
         }
         private bool sendEmail(string email, string message)
@@ -160,8 +160,10 @@ namespace laboAT2.Controllers
             if (myr.Read())
             {
                  id_etudiant = Convert.ToInt32(myr["id_Etudiant"]);
+                 TempData["idEtudiant"] = id_etudiant;
 
             }
+
             myr.Close();
             con.Close();
             return id_etudiant;
@@ -173,6 +175,8 @@ namespace laboAT2.Controllers
             //recuperation des donnes entree
             string us = login.user;
             string pd = login.password;
+            TempData["user"] = us;
+            TempData["password"] = pd;
             
 
             int id_etudiant=trouverIdEtudiant(us, pd);
@@ -186,7 +190,7 @@ namespace laboAT2.Controllers
                 }
                 else
                 {
-                    return  View ("accueil");
+                    return  View ("acceuil");
                 }
                 //myr.Close();
                 //con.Close();
@@ -257,7 +261,7 @@ namespace laboAT2.Controllers
             string newUs = reset.user;
             string newPwd = reset.password;
 
-            int idEtudiant = 12;
+            int idEtudiant = Convert.ToInt32(TempData["idEtudiant"]);
 
             resetLogin(idEtudiant,newUs, newPwd);
             setStatusTrue(idEtudiant);
@@ -271,12 +275,64 @@ namespace laboAT2.Controllers
 
             return View("login");
         }
-        
+
         
         public ActionResult acceuil()
         {
+            
+            List<Cours> lstCours = ListCours();
 
-            return View();
+            return View(lstCours);
+            
+
+        }
+
+        private List<Cours> ListCours(string us , string pd)
+        {
+            us = TempData["user"].ToString();
+            us = TempData["password"].ToString();
+            int idEtudiant = trouverIdEtudiant(us,pd);
+            //int idEtudiant =Convert.ToInt32( TempData["idEtudiant"]);
+            List<Cours> lstCours = new List<Cours>();
+            SqlConnection con = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=D:\\DEC\\AUTOMN2023\\AT2\\LABOAT2\\APP_DATA\\DBEDUCATIONAT2.MDF;Integrated Security=True");
+            con.Open();
+            try
+            {
+                string sql = "SELECT  Neducation from  Etudiant where Id=" + idEtudiant;
+                SqlCommand cmd =new SqlCommand(sql, con);
+                SqlDataReader reader = cmd.ExecuteReader();
+                int nEducation= 0;
+                while (reader.Read())
+                {
+                    nEducation = Convert.ToInt32(reader["Neducation"]);
+                }
+                reader.Close();
+                cmd = new SqlCommand("Select * from Cours where niveauEducation=@nEducation", con);
+                cmd.Parameters.AddWithValue("@nEducation", nEducation);
+                SqlDataReader reader2 = cmd.ExecuteReader();
+                while (reader2.Read())
+                {
+                    lstCours.Add(new Cours
+                    {
+                        titre = reader2["titre"].ToString(),
+                        prix =Convert.ToInt32( reader2["prix"]),
+                        desc = reader2["desc"].ToString(),
+                        img = reader2["img"].ToString()
+                    });
+
+                }
+                reader2.Close();
+            }
+            catch (Exception ex)
+            {
+                ViewBag.errmsg = ex.Message;
+            }
+            finally
+            {
+                con.Close();
+            }
+
+            return lstCours;
         }
     }
 }

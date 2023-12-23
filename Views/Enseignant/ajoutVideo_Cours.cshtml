@@ -1,0 +1,55 @@
+﻿@model laboAT2.Models.videoCour
+
+@{
+    ViewBag.Title = "Addvideo_cours";
+}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<h2>Addvideo_cours</h2>
+
+@using (Html.BeginForm("ajoutVideo_Cours","Enseignant", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Video_cour</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.idCours, "Cours", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select class="form-select" aria-label="Default select example" name="idCours" id="idCours">
+                    @if (ViewBag.cours != null)
+                    {
+                        foreach (var item in ViewBag.cours)
+                        {
+                            <option value="@item.idCours">@item.titre</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.idVideo, "Video", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <select class="form-select" aria-label="Default select example" name="idVideo" id="idVideo">
+                        @if (ViewBag.videos != null)
+                        {
+                            foreach (var item in ViewBag.videos)
+                            {
+                                <option value="@item.idVideo">@item.titre</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

@@ -1,47 +1,77 @@
 ﻿@model laboAT2.Models.cour
+
+
 @{
- ViewBag =
+    ViewBag.Title = "ajoutCours";
 }
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<span class="border-start-0">
+    <h2>Create Courses</h2>
 
-<!DOCTYPE html>
+    @using (Html.BeginForm("ajoutCours", "Enseignant", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>ajoutCours</title>
-</head>
-<body>
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.titre, htmlAttributes: new { @class = "form-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.titre, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.titre, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "form-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "input-group-text" } })
+            @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.niveauEducation, htmlAttributes: new { @class = "form-label" })
+        <div class="col-md-10">
+            <select class="form-control" aria-label="Default select example" name="Id" id="Id">
+                @if (ViewBag.courses != null)
+                {
+                    foreach (var item in ViewBag.courses)
+                    {
+                        <option value="@item.Id">@item.titre</option>
+                    }
+                }
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.prix, htmlAttributes: new { @class = "form-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.prix, new
+            {
+                htmlAttributes = new { @class = "input-group-text" }
+            })
+            @Html.ValidationMessageFor(model => model.prix, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="" input-group mb-3"">
+        @Html.LabelFor(model => model.img, htmlAttributes: new { @class = "form-label" })
+        <div class="col-md-10">
+
+            <input type="file" id="img" name="img" class="input-group-text">
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Ajouter</button>
+</div>
+    }
+
     <div>
 
-        @using (Html.BeginForm("inscription", "Inscription", FormMethod.Post))
-        {
-            @Html.AntiForgeryToken()
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.titre)
-                @Html.TextBoxFor(m => m.titre, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.titre, "you must enter a Lastname", new { @class = "text-danger" })
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.description)
-                @Html.TextBoxFor(m => m.description, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.description, "You must enter you name", new { @class = "text-danger" })
-            </div>
-
-            <div class="form-group">
-               
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.img, htmlAttributes: new { @class = "control-label" })
-                @Html.TextBoxFor(m => m.img, new { type = "file", @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.img, "Select an img", new { @class = "text-danger" })
-            </div>
-            <button type="submit" class="btn btn-primary">Register</button>
-        }
-
-
     </div>
-</body>
-</html>
+</span>

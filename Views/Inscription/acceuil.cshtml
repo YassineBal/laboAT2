@@ -1,4 +1,5 @@
-﻿
+﻿@model IEnumerable<laboAT2.Models.Cours>
+
 @{
     Layout = null;
 }
@@ -8,11 +9,42 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>acceuil</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Cours</title>
 </head>
 <body>
-    <div>
-        hhhhhhhh
-    </div>
+    <div class="container">
+        <div class="row">
+            <table class="col-md-4">
+
+
+
+
+                @foreach (var item in Model)
+                {
+                    <tr class="card" style="width: 18rem;">
+                        <td>
+                            <img src=@Html.DisplayFor(modelItem => item.img) class="card-img-top" alt="" />
+                        </td>
+                        <td class="card-title">
+                            @Html.DisplayFor(modelItem => item.titre)
+                        </td>
+
+                        <td class="card-text">
+                            @Html.DisplayFor(modelItem => item.desc)
+                        </td>
+                        <td class="card-text">
+                            <a href="#" class="badge badge-light">!</a>
+                        </td>
+                        <td class="card-text">
+                            @Html.DisplayFor(modelItem => item.desc)
+                        </td>
+                        <td class="card-text">
+                            @Html.DisplayFor(modelItem => item.prix)
+                        </td>
+
+                    </tr>
+                }
+            </table>
 </body>
 </html>

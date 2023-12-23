@@ -108,6 +108,7 @@
     <Compile Include="Models\clsEtudiant.cs" />
     <Compile Include="Models\clsLogin.cs" />
     <Compile Include="Models\clsNiveauEducation.cs" />
+    <Compile Include="Models\Cours.cs" />
     <Compile Include="Models\enseignant.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -136,6 +137,7 @@
     <Content Include="Views\Enseignant\home.cshtml" />
     <Content Include="Views\Enseignant\ajoutCours.cshtml" />
     <Content Include="Views\Enseignant\ajoutVideo.cshtml" />
+    <Content Include="Views\Enseignant\ajoutVideo_Cours.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -145,6 +147,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="img\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

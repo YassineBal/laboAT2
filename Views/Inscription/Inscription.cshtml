@@ -28,6 +28,20 @@
         @Html.TextBoxFor(m => m.email, new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.email, "you must enter a valid email", new { @class = "text-danger" })
     </div>
+    @*<div class="form-group">
+        @Html.LabelFor(model => model.Neducation, "Video", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <select class="form-select" aria-label="Default select example" name="idEducation" id="idEducation">
+                @if (ViewBag.nvEducation != null)
+                {
+                    foreach (var item in ViewBag.nvEducation)
+                    {
+                        <option value="@item.Id">@item.titre</option>
+                    }
+                }
+            </select>
+        </div>*@
+   
     <div class="form-group">
         @Html.LabelFor(m => m.Neducation);
         @Html.TextBoxFor(m => m.Neducation, new { @class = "form-control" })
